@@ -1,15 +1,23 @@
-{% comment %} {% load staticfiles %} {% endcomment %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Library</title>
-  </head>
-  <body>
+{% extends 'shared/base.html' %}
+
+{% block content %}
+    <section id="book-details">
     <h1>{{ book.title }}</h1>
     <h2>By {{ book.author }}</h2>
 
     <div>Published in {{ book.year_published }}</div>
-    <div>ISBN: {{ book.isbn }}</div>
+    <div>ISBN: {{ book.ISBN_number }}</div>
+    <div>Located in the {{ book.location.title }}</div>
+    <div>Registered by {{ book.librarian.first_name }} {{ book.librarian.last_name }}</div>
+</section>
+    <form action="{% url 'libraryapp:book' book.id %}" method="POST">
+    {% csrf_token %}
+      <input type="hidden" name="actual_method" value="DELETE">
+      <button>Delete</button>
+    </form>
+    <form action="{% url 'libraryapp:book_edit_form' book.id %}" method="GET">
+        {% csrf_token %}
+        <button>Edit</button>
+    </form>
   </body>
-</html>
+{% endblock %}
