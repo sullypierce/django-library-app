@@ -1,3 +1,2 @@
 libraryenv
-libraryproject/__pycache__
-*.pyc
+*pyc
